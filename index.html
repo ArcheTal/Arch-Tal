@@ -9,6 +9,12 @@
 
 <style>
 
+/* VARIÁVEIS */
+:root {
+  --gold: #c8a96a;
+  --dark: #0b1c2c;
+}
+
 /* RESET */
 a {
   text-decoration: none !important;
@@ -18,8 +24,8 @@ a {
 body {
   margin:0;
   font-family:'Inter', sans-serif;
-  background:#f2f2f2;
-  color:#111;
+  background:var(--dark);
+  color:#eaeaea;
   overflow-x:hidden;
 }
 
@@ -27,7 +33,7 @@ body {
 #loader {
   position:fixed;
   inset:0;
-  background:#111;
+  background:var(--dark);
   display:flex;
   align-items:center;
   justify-content:center;
@@ -44,7 +50,7 @@ body {
   width:40px;
   height:40px;
   border:1px solid rgba(255,255,255,0.3);
-  border-top:1px solid white;
+  border-top:1px solid var(--gold);
   border-radius:50%;
   animation:spin 1s linear infinite;
 }
@@ -58,15 +64,17 @@ h1 {
   font-family:'Playfair Display', serif;
   font-size:clamp(36px,6vw,72px);
   line-height:1.05;
+  color:var(--gold);
 }
 
 h2 {
   font-size:28px;
   margin-bottom:40px;
+  color:var(--gold);
 }
 
 p {
-  color:#666;
+  color:#cfcfcf;
 }
 
 /* HERO */
@@ -89,7 +97,7 @@ p {
 .overlay {
   position:absolute;
   inset:0;
-  background:linear-gradient(to bottom, rgba(0,0,0,0.6), rgba(0,0,0,0.3));
+  background:linear-gradient(to bottom, rgba(5,10,20,0.85), rgba(5,10,20,0.6));
   display:flex;
   align-items:center;
   justify-content:center;
@@ -102,23 +110,18 @@ p {
   color:white;
 }
 
-.hero p {
-  margin-top:20px;
-  font-size:18px;
-  color:rgba(255,255,255,0.85);
+.logo {
+  width:180px;
+  margin-bottom:20px;
 }
 
 /* BOTÃO */
-.cta,
-.cta:link,
-.cta:visited,
-.cta:hover,
-.cta:active {
+.cta {
   display:inline-block;
   margin-top:30px;
   padding:14px 28px;
-  background:white;
-  color:#111 !important;
+  background:var(--gold);
+  color:var(--dark) !important;
   font-size:14px;
   letter-spacing:0.5px;
   border-radius:2px;
@@ -126,7 +129,7 @@ p {
 }
 
 .cta:hover {
-  background:#ddd;
+  background:#b89652;
 }
 
 /* SEÇÃO */
@@ -152,6 +155,7 @@ p {
   overflow:hidden;
   cursor:pointer;
   transition:transform 0.4s ease;
+  border:1px solid rgba(200,169,106,0.2);
 }
 
 .project:hover {
@@ -173,7 +177,7 @@ p {
   content:"";
   position:absolute;
   inset:0;
-  background:rgba(0,0,0,0.15);
+  background:rgba(0,0,0,0.25);
   opacity:0;
   transition:0.4s;
 }
@@ -188,6 +192,7 @@ p {
 
 .project-info h3 {
   margin:0;
+  color:var(--gold);
 }
 
 .project-info p {
@@ -196,7 +201,7 @@ p {
 
 /* CONTACT */
 .contact {
-  background:#111;
+  background:#081520;
   color:white;
   text-align:center;
   padding:60px 20px;
@@ -244,12 +249,16 @@ p {
 
   <div class="overlay">
     <div class="hero-content">
+
+      <!-- LOGO -->
+      <img src="logo.png" class="logo reveal">
+
       <h1 class="reveal">
-        Criamos imagens que definem como a arquitetura é percebida.
+        Arquitetura que transforma espaço em experiência.
       </h1>
 
       <p class="reveal">
-        Visualização arquitetônica fotorrealista para arquitetos e incorporadores.
+        Projetos exclusivos com identidade, sofisticação e propósito.
       </p>
 
       <a href="https://wa.me/5522999824550" target="_blank" class="cta reveal">
@@ -267,7 +276,7 @@ p {
 
     <div class="grid">
 
-      <a href="projeto-casa.html" class="project reveal">
+      <a href="#" class="project reveal">
         <img src="render-casa.jpg">
         <div class="project-info">
           <h3>Casa Moderna</h3>
@@ -275,15 +284,15 @@ p {
         </div>
       </a>
 
-      <a href="projeto-clinica.html" class="project reveal">
+      <a href="#" class="project reveal">
         <img src="render-clinica.jpg">
         <div class="project-info">
-          <h3>Clínica Odontologica</h3>
+          <h3>Clínica Odontológica</h3>
           <p>Projeto comercial</p>
         </div>
       </a>
 
-      <a href="projeto-quarto.html" class="project reveal">
+      <a href="#" class="project reveal">
         <img src="render-quarto.jpg">
         <div class="project-info">
           <h3>Quarto</h3>
@@ -291,11 +300,11 @@ p {
         </div>
       </a>
 
-      <a href="projeto-sala.html" class="project reveal">
+      <a href="#" class="project reveal">
         <img src="render-sala.jpg">
         <div class="project-info">
           <h3>Sala</h3>
-          <p>Espaço Residencial</p>
+          <p>Espaço residencial</p>
         </div>
       </a>
 
@@ -310,9 +319,7 @@ p {
   <h2 class="reveal">Contato</h2>
 
   <p class="reveal">pablofrerie@hotmail.com</p>
-
-  <p class="reveal">Instagram: @arch.tal</p>
-
+  <p class="reveal">@arch.tal</p>
   <p class="reveal">
     WhatsApp: <a href="https://wa.me/5522999824550" target="_blank">+55 22 99982-4550</a>
   </p>
@@ -352,4 +359,3 @@ window.addEventListener('scroll', () => {
 
 </body>
 </html>
-<!-- deploy teste -->
