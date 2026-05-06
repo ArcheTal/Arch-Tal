@@ -8,26 +8,18 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
-
-/* VARIÁVEIS */
-:root {
-  --gold:#c8a96a;
-  --dark:#0b1c2c;
-}
-
 body {
   margin:0;
   font-family:'Inter', sans-serif;
-  background:var(--dark);
+  background:#0b1c2c;
   color:#eaeaea;
 }
 
 /* TIPOGRAFIA */
 .brand {
   font-family:'Playfair Display', serif;
-  font-size:24px;
+  color:#c8a96a;
   letter-spacing:2px;
-  color:var(--gold);
   margin-bottom:20px;
 }
 
@@ -35,12 +27,39 @@ h1 {
   font-family:'Playfair Display', serif;
   font-size:clamp(32px,5vw,56px);
   margin-bottom:20px;
-  color:var(--gold);
+  color:#c8a96a;
 }
 
 p {
   color:#cfcfcf;
   max-width:600px;
+}
+
+/* TRANSIÇÃO */
+#swup {
+  transition:0.6s cubic-bezier(0.22,1,0.36,1);
+}
+
+html.is-animating #swup {
+  opacity:0;
+  transform:translateY(20px);
+}
+
+html.is-leaving #swup {
+  opacity:0;
+  transform:scale(0.98);
+}
+
+/* ANIMAÇÃO */
+.reveal {
+  opacity:0;
+  transform:translateY(60px);
+  transition:1.2s cubic-bezier(0.22,1,0.36,1);
+}
+
+.reveal.show {
+  opacity:1;
+  transform:translateY(0);
 }
 
 /* HERO */
@@ -64,17 +83,13 @@ p {
   margin:auto;
 }
 
-/* BOTÃO VOLTAR */
+/* BACK */
 .back {
+  color:#c8a96a !important;
+  text-decoration:none !important;
+  font-weight:500;
   display:inline-block;
   margin-bottom:30px;
-  color:var(--gold);
-  font-weight:500;
-  transition:0.3s;
-}
-
-.back:hover {
-  opacity:0.7;
 }
 
 /* GRID */
@@ -89,7 +104,7 @@ p {
 .project img {
   width:100%;
   border-radius:6px;
-  transition:0.4s;
+  transition:0.4s ease;
 }
 
 .project img:hover {
@@ -106,67 +121,81 @@ p {
   padding:14px 18px;
   border-radius:40px;
   font-size:14px;
-  box-shadow:0 5px 20px rgba(0,0,0,0.3);
 }
 
 /* MOBILE */
 @media(max-width:768px){
-  .grid { grid-template-columns:1fr; }
+  .grid {
+    grid-template-columns:1fr;
+  }
 }
-
 </style>
 </head>
 
 <body>
 
-<!-- HERO -->
-<div class="hero">
-  <img src="render-casa.jpg">
-</div>
+<div id="swup">
 
-<!-- CONTEÚDO -->
-<div class="section">
-  <div class="container">
+  <div class="hero">
+    <img src="render-casa.jpg">
+  </div>
 
-    <div class="brand">ARCH E TAL</div>
+  <div class="section">
+    <div class="container">
 
-    <a href="index.html" class="back">
-      ← Voltar
-    </a>
+      <div class="brand">ARCH E TAL</div>
 
-    <h1>Casa Moderna</h1>
+      <a href="index.html" class="back">← Voltar</a>
 
-    <p>
-      Projeto residencial de alto padrão focado em iluminação natural, materiais e atmosfera.
-    </p>
+      <h1 class="reveal">Casa Moderna</h1>
 
-    <div class="grid">
+      <p class="reveal">
+        Projeto residencial de alto padrão focado em iluminação natural, materiais e atmosfera.
+      </p>
 
-      <div class="project">
-        <img src="render-casa.jpg">
-      </div>
+      <div class="grid">
 
-      <div class="project">
-        <img src="render-casa.jpg">
-      </div>
+        <div class="project reveal"><img src="render-casa.jpg"></div>
+        <div class="project reveal"><img src="render-casa.jpg"></div>
+        <div class="project reveal"><img src="render-casa.jpg"></div>
+        <div class="project reveal"><img src="render-casa.jpg"></div>
 
-      <div class="project">
-        <img src="render-casa.jpg">
-      </div>
-
-      <div class="project">
-        <img src="render-casa.jpg">
       </div>
 
     </div>
-
   </div>
+
 </div>
 
-<!-- WHATSAPP -->
 <a href="https://wa.me/5522999824550" target="_blank" class="whatsapp">
   Faça seu orçamento
 </a>
+
+<script src="https://unpkg.com/swup@4"></script>
+
+<script>
+const swup = new Swup();
+
+function initAnimations(){
+  const els = document.querySelectorAll('.reveal');
+
+  const obs = new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        entry.target.classList.add('show');
+      }
+    });
+  });
+
+  els.forEach(el=>obs.observe(el));
+}
+
+initAnimations();
+
+swup.hooks.on('page:view', () => {
+  initAnimations();
+});
+</script>
 
 </body>
 </html>
