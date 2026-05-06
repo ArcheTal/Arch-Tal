@@ -152,8 +152,11 @@ p {
 
 /* PROJETOS */
 .project {
+  position:relative;
+  overflow:hidden;
+  cursor:pointer;
+  transition:transform 0.4s ease;
   border:1px solid rgba(200,169,106,0.2);
-  transition:0.4s;
 }
 
 .project:hover {
@@ -164,10 +167,37 @@ p {
   width:100%;
   height:420px;
   object-fit:cover;
+  transition:transform 0.6s ease;
+}
+
+.project:hover img {
+  transform:scale(1.05);
+}
+
+.project::after {
+  content:"";
+  position:absolute;
+  inset:0;
+  background:rgba(0,0,0,0.25);
+  opacity:0;
+  transition:0.4s;
+}
+
+.project:hover::after {
+  opacity:1;
+}
+
+.project-info {
+  margin-top:15px;
 }
 
 .project-info h3 {
+  margin:0;
   color:var(--gold);
+}
+
+.project-info p {
+  font-size:14px;
 }
 
 /* CONTACT */
@@ -177,39 +207,49 @@ p {
   padding:60px 20px;
 }
 
-/* WHATSAPP FLUTUANTE */
+.contact p {
+  color:#aaa;
+}
+
+/* WHATSAPP */
 .whatsapp {
   position:fixed;
   bottom:20px;
   right:20px;
   background:#25D366;
-  width:60px;
-  height:60px;
-  border-radius:50%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:28px;
   color:white;
+  padding:14px 18px;
+  border-radius:40px;
+  font-size:14px;
+  font-weight:500;
   box-shadow:0 5px 20px rgba(0,0,0,0.3);
   z-index:999;
   transition:0.3s;
 }
 
 .whatsapp:hover {
-  transform:scale(1.1);
+  transform:scale(1.05);
 }
 
 /* ANIMAÇÃO */
 .reveal {
   opacity:0;
-  transform:translateY(50px);
-  transition:1s;
+  transform:translateY(50px) scale(0.98);
+  filter:blur(10px);
+  transition: all 1s cubic-bezier(0.22,1,0.36,1);
 }
 
 .reveal.show {
   opacity:1;
-  transform:translateY(0);
+  transform:translateY(0) scale(1);
+  filter:blur(0);
+}
+
+/* MOBILE */
+@media(max-width:768px){
+  .grid { grid-template-columns:1fr; }
+  .project img { height:260px; }
+  .section { padding:80px 20px; }
 }
 
 </style>
@@ -266,8 +306,24 @@ p {
       <div class="project reveal">
         <img src="render-clinica.jpg">
         <div class="project-info">
-          <h3>Clínica</h3>
+          <h3>Clínica Odontológica</h3>
           <p>Comercial</p>
+        </div>
+      </div>
+
+      <div class="project reveal">
+        <img src="render-quarto.jpg">
+        <div class="project-info">
+          <h3>Quarto</h3>
+          <p>Interiores</p>
+        </div>
+      </div>
+
+      <div class="project reveal">
+        <img src="render-sala.jpg">
+        <div class="project-info">
+          <h3>Sala</h3>
+          <p>Residencial</p>
         </div>
       </div>
 
@@ -278,33 +334,41 @@ p {
 
 <!-- CONTACT -->
 <div class="contact">
-  <h2>Contato</h2>
-  <p>pablofrerie@hotmail.com</p>
-  <p>@arch.tal</p>
+
+  <h2 class="reveal">Contato</h2>
+
+  <p class="reveal">pablofrerie@hotmail.com</p>
+  <p class="reveal">@arch.tal</p>
+
 </div>
 
 <!-- BOTÃO WHATSAPP -->
 <a href="https://wa.me/5522999824550" target="_blank" class="whatsapp">
-  💬
+  Faça seu orçamento
 </a>
 
 <script>
 
 /* LOADER */
 window.addEventListener('load', () => {
-  document.getElementById('loader').classList.add('hide');
+  const loader = document.getElementById('loader');
+  setTimeout(() => {
+    loader.classList.add('hide');
+  }, 500);
 });
 
 /* ANIMAÇÃO */
-const observer = new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting){
-      e.target.classList.add('show');
+const elements = document.querySelectorAll('.reveal');
+
+const observer = new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      entry.target.classList.add('show');
     }
   });
 });
 
-document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+elements.forEach(el => observer.observe(el));
 
 /* PARALLAX */
 window.addEventListener('scroll', () => {
