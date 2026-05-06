@@ -60,6 +60,14 @@ body {
 }
 
 /* TIPOGRAFIA */
+.brand {
+  font-family:'Playfair Display', serif;
+  font-size:28px;
+  letter-spacing:2px;
+  color:var(--gold);
+  margin-bottom:20px;
+}
+
 h1 {
   font-family:'Playfair Display', serif;
   font-size:clamp(36px,6vw,72px);
@@ -107,12 +115,6 @@ p {
 
 .hero-content {
   max-width:650px;
-  color:white;
-}
-
-.logo {
-  width:180px;
-  margin-bottom:20px;
 }
 
 /* BOTÃO */
@@ -123,7 +125,6 @@ p {
   background:var(--gold);
   color:var(--dark) !important;
   font-size:14px;
-  letter-spacing:0.5px;
   border-radius:2px;
   transition:0.3s;
 }
@@ -151,11 +152,8 @@ p {
 
 /* PROJETOS */
 .project {
-  position:relative;
-  overflow:hidden;
-  cursor:pointer;
-  transition:transform 0.4s ease;
   border:1px solid rgba(200,169,106,0.2);
+  transition:0.4s;
 }
 
 .project:hover {
@@ -166,71 +164,52 @@ p {
   width:100%;
   height:420px;
   object-fit:cover;
-  transition:transform 0.6s ease;
-}
-
-.project:hover img {
-  transform:scale(1.05);
-}
-
-.project::after {
-  content:"";
-  position:absolute;
-  inset:0;
-  background:rgba(0,0,0,0.25);
-  opacity:0;
-  transition:0.4s;
-}
-
-.project:hover::after {
-  opacity:1;
-}
-
-.project-info {
-  margin-top:15px;
 }
 
 .project-info h3 {
-  margin:0;
   color:var(--gold);
-}
-
-.project-info p {
-  font-size:14px;
 }
 
 /* CONTACT */
 .contact {
   background:#081520;
-  color:white;
   text-align:center;
   padding:60px 20px;
 }
 
-.contact p {
-  color:#aaa;
-  font-size:16px;
+/* WHATSAPP FLUTUANTE */
+.whatsapp {
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  background:#25D366;
+  width:60px;
+  height:60px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:28px;
+  color:white;
+  box-shadow:0 5px 20px rgba(0,0,0,0.3);
+  z-index:999;
+  transition:0.3s;
+}
+
+.whatsapp:hover {
+  transform:scale(1.1);
 }
 
 /* ANIMAÇÃO */
 .reveal {
   opacity:0;
-  transform:translateY(50px) scale(0.98);
-  filter:blur(10px);
-  transition: all 1s cubic-bezier(0.22,1,0.36,1);
+  transform:translateY(50px);
+  transition:1s;
 }
 
 .reveal.show {
   opacity:1;
-  transform:translateY(0) scale(1);
-  filter:blur(0);
-}
-
-/* MOBILE */
-@media(max-width:768px){
-  .grid { grid-template-columns:1fr; }
-  .project img { height:260px; }
-  .section { padding:80px 20px; }
+  transform:translateY(0);
 }
 
 </style>
@@ -250,8 +229,7 @@ p {
   <div class="overlay">
     <div class="hero-content">
 
-      <!-- LOGO -->
-      <img src="logo.png" class="logo reveal">
+      <div class="brand reveal">ARCH E TAL</div>
 
       <h1 class="reveal">
         Arquitetura que transforma espaço em experiência.
@@ -264,6 +242,7 @@ p {
       <a href="https://wa.me/5522999824550" target="_blank" class="cta reveal">
         Solicitar orçamento
       </a>
+
     </div>
   </div>
 </div>
@@ -276,37 +255,21 @@ p {
 
     <div class="grid">
 
-      <a href="#" class="project reveal">
+      <div class="project reveal">
         <img src="render-casa.jpg">
         <div class="project-info">
           <h3>Casa Moderna</h3>
-          <p>Visualização residencial</p>
+          <p>Residencial</p>
         </div>
-      </a>
+      </div>
 
-      <a href="#" class="project reveal">
+      <div class="project reveal">
         <img src="render-clinica.jpg">
         <div class="project-info">
-          <h3>Clínica Odontológica</h3>
-          <p>Projeto comercial</p>
+          <h3>Clínica</h3>
+          <p>Comercial</p>
         </div>
-      </a>
-
-      <a href="#" class="project reveal">
-        <img src="render-quarto.jpg">
-        <div class="project-info">
-          <h3>Quarto</h3>
-          <p>Visualização de interiores</p>
-        </div>
-      </a>
-
-      <a href="#" class="project reveal">
-        <img src="render-sala.jpg">
-        <div class="project-info">
-          <h3>Sala</h3>
-          <p>Espaço residencial</p>
-        </div>
-      </a>
+      </div>
 
     </div>
 
@@ -315,39 +278,33 @@ p {
 
 <!-- CONTACT -->
 <div class="contact">
-
-  <h2 class="reveal">Contato</h2>
-
-  <p class="reveal">pablofrerie@hotmail.com</p>
-  <p class="reveal">@arch.tal</p>
-  <p class="reveal">
-    WhatsApp: <a href="https://wa.me/5522999824550" target="_blank">+55 22 99982-4550</a>
-  </p>
-
+  <h2>Contato</h2>
+  <p>pablofrerie@hotmail.com</p>
+  <p>@arch.tal</p>
 </div>
+
+<!-- BOTÃO WHATSAPP -->
+<a href="https://wa.me/5522999824550" target="_blank" class="whatsapp">
+  💬
+</a>
 
 <script>
 
 /* LOADER */
 window.addEventListener('load', () => {
-  const loader = document.getElementById('loader');
-  setTimeout(() => {
-    loader.classList.add('hide');
-  }, 500);
+  document.getElementById('loader').classList.add('hide');
 });
 
 /* ANIMAÇÃO */
-const elements = document.querySelectorAll('.reveal');
-
-const observer = new IntersectionObserver((entries)=>{
-  entries.forEach(entry=>{
-    if(entry.isIntersecting){
-      entry.target.classList.add('show');
+const observer = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('show');
     }
   });
 });
 
-elements.forEach(el => observer.observe(el));
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
 /* PARALLAX */
 window.addEventListener('scroll', () => {
